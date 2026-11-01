@@ -1,0 +1,134 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+version: "v0.4"
+
+project:
+  name: "A permutation of the integers with no monotone 4-term AP of odd difference (Erdős #195, partial)"
+  description: >-
+    Constructs an explicit bijection f : ℕ ≃ ℤ such that no indices i < j < k < l give an
+    arithmetic progression f i, f j, f k, f l with odd common difference, increasing or
+    decreasing. This is the ℤ-analogue of LeSaulnier–Vijay's theorem for ℕ and partial progress
+    on Erdős Problem #195, which remains open (it asks whether every permutation of ℤ contains a
+    monotone 4-term arithmetic progression of any difference).
+  authors:
+    - "Alex Lopez"
+  license: "Apache-2.0"
+  responsible_maintainers:
+    - "Alex Lopez"
+
+classification:
+  arxiv: ["math.CO", "math.NT"]
+  msc2020: ["11B25", "05A05"]
+
+sources:
+  - title: "A permutation of ℤ with no monotone 4-term AP of odd common difference (docs/proof.md in this repository)"
+    type: original-proof
+    relationship: other
+    note: "The construction and proof first presented here; found with Claude Opus 5.5 (Anthropic)."
+  - title: "Erdős Problem #195"
+    authors:
+      - "Thomas F. Bloom"
+    contributors:
+      - name: "Paul Erdős"
+        role: "problem-proposer"
+      - name: "Ronald Graham"
+        role: "problem-proposer"
+    id: "https://www.erdosproblems.com/195"
+    type: "web page"
+    relationship: background
+  - title: "On permutations avoiding arithmetic progressions"
+    authors:
+      - "Timothy D. LeSaulnier"
+      - "Sujith Vijay"
+    id: "arXiv:1004.1740"
+    type: "article"
+    location: "Discrete Mathematics 311 (2011), 205–207"
+    relationship: background
+    note: "Proves the analogous statement for permutations of ℕ."
+  - title: "Avoiding monotone arithmetic progressions in permutations of integers"
+    authors:
+      - "Sarosh Adenwalla"
+    id: "doi:10.1016/j.disc.2024.114183"
+    type: "article"
+    location: "Discrete Mathematics 347 (2024), 114183"
+    relationship: background
+  - title: "A 4AP-free permutation of the positive integers"
+    authors:
+      - "Boon Suan Ho"
+    id: "arXiv:2609.12780"
+    type: "preprint"
+    relationship: background
+  - title: "Avoiding four-term progressions from finitely many starts"
+    authors:
+      - "William Thompson"
+    id: "arXiv:2609.13350"
+    type: "preprint"
+    relationship: background
+
+related_formalizations:
+  - id: "https://github.com/google-deepmind/formal-conjectures/blob/a64e959c32c270df4dd0d96d2027481f15750534/FormalConjectures/ErdosProblems/195.lean"
+    relationship: other
+    note: "Statement of Erdős #195; Erdos195Odd.main_result_list mirrors its HasMonotoneAP predicate restricted to odd common differences."
+
+status:
+  scope: >-
+    Fully formalizes the theorem that some permutation of ℤ has no monotone 4-term arithmetic
+    progression with odd common difference, in two equivalent phrasings. It does not treat even
+    differences, which do occur in this permutation, and it does not resolve Erdős #195. The
+    remarks in docs/proof.md on the sharpness of the constant and on Ho's construction are not
+    formalized.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: []
+
+automation:
+  methods:
+    - method: "agent"
+      models: ["Claude Opus 5.5 (claude-opus-5-5)"]
+      framework: "Claude Code"
+      tool_setup: >-
+        Claude Code agents: one main session, plus Opus subagents that attacked several open
+        Erdős problems in parallel. The subagents used Python and C for computation and the
+        CaDiCaL SAT solver. The construction was found by the subagent working on #195. The main
+        session verified it numerically and wrote the Lean proof, iterating with the Lean compiler
+        (omega, nlinarith, positivity).
+      cost:
+        wall_time: "about 4 hours, including problem selection"
+        spend_usd: "subscription-based"
+        hardware: "local machine"
+      prompting_notes: >-
+        The user asked Claude to find and solve an untouched open Erdős problem, formalize the
+        result and publish it. No full solution was found. With the user's approval, this partial
+        result was published instead.
+  spend_usd: "subscription-based"
+  notes: >-
+    The mathematics, the write-up and the Lean code were produced by Claude Opus 5.5 under the
+    direction of Alex Lopez. The Lean kernel checks the main theorems.
+
+fidelity:
+  divergences: "none known"
+
+review:
+  status: "self-assessed"
+  reviewers:
+    - "none"
+  notes: >-
+    The statements in Challenge.lean and Solution.lean were checked to elaborate to identical terms
+    (pp.all), and #print axioms reports only propext, Classical.choice and Quot.sound. The
+    construction was also checked numerically for all progressions with terms in [-400, 400]. The
+    informal proof has not been refereed by a human.
+
+alignment:
+  namespace: "Erdos195Odd"
+  statements:
+    - source: "docs/proof.md, Theorem 1"
+      lean: "Erdos195Odd.main_result"
+      module: "Challenge"
+      status: "proved"
+      note: "Indices i < j < k < l and values a, a + d, a + 2d, a + 3d with d odd; a negative d covers decreasing progressions."
+    - source: "docs/proof.md, Theorem 1 (formal-conjectures phrasing)"
+      lean: "Erdos195Odd.main_result_list"
+      module: "Challenge"
+      status: "proved"
+      note: "Same theorem phrased like HasMonotoneAP f 4 from formal-conjectures, restricted to odd differences."
+
+acknowledgements: "Lean 4 and Mathlib; the formal-conjectures project for the statement of Erdős #195; the Palomar template for the repository layout."
