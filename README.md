@@ -33,7 +33,7 @@ theorem Erdos195Odd.main_result :
 `Erdos195Odd.main_result_list` states the same fact in the shape of `HasMonotoneAP f 4` from
 [google-deepmind/formal-conjectures](https://github.com/google-deepmind/formal-conjectures/blob/a64e959c32c270df4dd0d96d2027481f15750534/FormalConjectures/ErdosProblems/195.lean), restricted to odd differences.
 
-- Lean `v4.33.1`, Mathlib `v4.33.1`.
+- Lean `v4.35.0`, Mathlib `v4.35.0`.
 - No `sorry` outside `Challenge.lean` and no `native_decide`. Both theorems depend only on `propext`, `Classical.choice` and `Quot.sound` (checked with `#print axioms`).
 - The statements in `Challenge.lean` and `Solution.lean` elaborate to identical terms (checked with `pp.all`). The repository follows the [Palomar](https://palomar-registry.org) layout, with `comparator.json` and `formalization.yaml`. It has **not** been submitted to the registry yet; submissions go through https://submit.palomar-registry.org/.
 
