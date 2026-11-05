@@ -44,6 +44,10 @@ lake exe cache get   # download Mathlib build files
 lake build
 ```
 
+## Related work (added 2026-11-05)
+
+J. Geneson ([arXiv:2608.12604](https://arxiv.org/abs/2608.12604), August 2026), §5, builds permutations $\pi_{m,a,c}$ of $\mathbb Z$ from geometrically growing blocks of residue classes mod $m=2^t$. Taking his truncation constant to be $c=1$, starting the stages one step earlier and listing $0$ first, the $m\nmid d$ branches of his separation arguments give, for every $t\ge1$, a permutation of $\mathbb Z$ with no monotone 4-term AP whose common difference is not divisible by $2^t$ (with any order inside the blocks, for any real $a\ge1+\sqrt2$). For $t=1$ this is the odd-difference statement of this repository; for $t=2$ it is the statement of [`Alex-lop/erdos-195-difference-not-div-4`](https://github.com/Alex-lop/erdos-195-difference-not-div-4). Geneson does not state this corollary. It was noticed by the AI agents of this project after this repository was published; it has been checked by three adversarial AI referees, but it is not formalized here. The constructions in this repository were found independently and are different (a key order here; a reflection merge in the depth-2 repository).
+
 ## Use of AI
 
 This work was done by **Alex Lopez using Claude** (Anthropic's Claude Opus 5.5, running in Claude Code). Claude:
